@@ -1,65 +1,67 @@
-📘 Fórum API — Spring Boot + Kotlin
-📌 Sobre o Projeto
+# 📘 Fórum API — Spring Boot + Kotlin
 
-Esta é uma API REST desenvolvida com Spring Boot e Kotlin para gerenciamento de tópicos de fórum.
+## 📌 Sobre o Projeto
 
-A API permite:
-Listar tópicos
-Filtrar por curso
-Buscar por ID
-Criar novos tópicos
-Atualizar tópicos existentes
-Excluir tópicos
-Gerar relatório por categoria
+Esta é uma **API REST** robusta, desenvolvida utilizando **Spring Boot** e **Kotlin**, focada no gerenciamento completo de **tópicos de fórum**.
 
-O projeto utiliza:
-Spring Web
-Spring Data JPA
-Spring Cache
-Spring Validation
-PostgreSQL
-Kotlin
+A API oferece as seguintes funcionalidades principais:
 
-🚀 Endpoints da API
-📍 Listar Tópicos
-GET /topicos
-Query Params opcionais:
-nomeCurso – filtra por nome do curso
-paginação via Spring Data (size, page, sort)
-Cache: @Cacheable("topicos")
+* ✅ **Listar** todos os tópicos.
+* 🔎 **Filtrar** tópicos por nome do curso.
+* 🆔 **Buscar** um tópico específico por ID.
+* ➕ **Criar** novos tópicos.
+* ✏️ **Atualizar** tópicos existentes.
+* 🗑️ **Excluir** tópicos.
+* 📊 **Gerar relatório** de tópicos agrupados por categoria.
 
-📍 Buscar Tópico por ID
-GET /topicos/{id}
-Retorna os dados completos de um tópico.
+### 🛠️ Tecnologias Principais
 
-📍 Criar Novo Tópico
-POST /topicos
-Body: NovoTopicoForm
-Resposta: 201 Created com Location Header
-Cache: limpa topicos
+O projeto foi construído com as seguintes tecnologias e *frameworks*:
 
-📍 Atualizar Tópico
-PUT /topicos
-Body: AtualizacaoTopicoForm
-Resposta: 200 OK
-Cache: limpa topicos
+| Tecnologia | Descrição |
+| :--- | :--- |
+| **Spring Web** | Criação da API RESTful. |
+| **Spring Data JPA** | Persistência e manipulação de dados. |
+| **Spring Cache** | Otimização de performance com *caching*. |
+| **Spring Validation** | Validação de dados de entrada. |
+| **PostgreSQL** | Banco de dados relacional. |
+| **Kotlin** | Linguagem de programação moderna e concisa. |
 
-📍 Excluir Tópico
-DELETE /topicos/{id}
-Resposta: 204 No Content
-Cache: limpa topicos
+---
 
-📍 Relatório de Tópicos por Categoria
-GET /topicos/relatorio
+## 🚀 Endpoints da API
 
+| Método | Endpoint | Descrição | Observações |
+| :--- | :--- | :--- | :--- |
+| **GET** | `/topicos` | Lista todos os tópicos. | Suporta `Query Params` para filtro (`nomeCurso`) e Paginação (via Spring Data: `size`, `page`, `sort`). **Cache ativo**: `@Cacheable("topicos")`. |
+| **GET** | `/topicos/{id}` | Busca um tópico específico. | Retorna os dados completos do tópico. |
+| **POST** | `/topicos` | Cria um novo tópico. | **Body**: `NovoTopicoForm`. **Resposta**: `201 Created` com `Location Header`. **Cache**: Limpa o *cache* de `topicos`. |
+| **PUT** | `/topicos` | Atualiza um tópico existente. | **Body**: `AtualizacaoTopicoForm`. **Resposta**: `200 OK`. **Cache**: Limpa o *cache* de `topicos`. |
+| **DELETE** | `/topicos/{id}` | Exclui um tópico. | **Resposta**: `204 No Content`. **Cache**: Limpa o *cache* de `topicos`. |
+| **GET** | `/topicos/relatorio` | Gera o relatório de tópicos. | Agrupa os tópicos por categoria. |
 
-🧪 Como Rodar o Projeto
-1. Configure as variáveis de ambiente
+---
+
+## 🧪 Como Rodar o Projeto
+
+Siga os passos abaixo para configurar e iniciar a aplicação localmente.
+
+### 1. ⚙️ Configuração do Banco de Dados
+
+Configure as variáveis de ambiente necessárias para a conexão com o **PostgreSQL**:
+
+```bash
 export DB_URL=jdbc:postgresql://localhost:5432/forum
 export DB_USERNAME=usuario
 export DB_PASSWORD=senha
+```
 
-2. Suba o banco (opcional via Docker)
+
+### 2. 🐳 **Inicialização do PostgreSQL (Opcional via Docker)**
+
+Você pode subir uma instância do banco de dados PostgreSQL 16 rapidamente utilizando Docker:
+
+```bash
 docker run -d \
   --name forum-postgres \
   -e POSTGRES_USER=usuario \
@@ -67,7 +69,12 @@ docker run -d \
   -e POSTGRES_DB=forum \
   -p 5432:5432 \
   postgres:16
+```
 
-3. Rode a aplicação
-Usando Maven Wrapper:
+
+### 3. ▶️ **Execução da Aplicação**
+
+```bash
 ./mvnw spring-boot:run
+
+O projeto estará acessível em http://localhost:8080 (porta padrão).
